@@ -7,16 +7,30 @@
 # load File.expand_path('../lib/questions/engine.rb', __FILE__)
 
 
-register_asset "javascripts/questions/questions.js"
+register_asset "javascripts/questions/questions_post_view.js"
+register_asset "javascripts/discourse/templates/big_like.js.handlebars"
 
 register_css <<CSS
 
-.question .posts-wrapper .post-cloak{
-    margin-left: 50px;
+.bigLikeNumber {
+ text-align: center;
 }
 
-.question .posts-wrapper .post-cloak:first-child{
-    margin-left: 0px;
+.bigLikeNumber:before {
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: #F5F5F5;
+    font: 90px/1 FontAwesome;
+    content: "\f004";
+    z-index: -5;
+}
+
+.bigLikeNumber h2 {
+    color: #333;
+    font-size: 45px;
+    line-height: 90px;
 }
 
 CSS
