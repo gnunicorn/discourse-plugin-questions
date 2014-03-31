@@ -11,6 +11,13 @@ register_asset "javascripts/questions/questions.js"
 
 register_css <<CSS
 
+.question .posts-wrapper .post-cloak{
+    margin-left: 50px;
+}
+
+.question .posts-wrapper .post-cloak:first-child{
+    margin-left: 0px;
+}
 
 CSS
 
