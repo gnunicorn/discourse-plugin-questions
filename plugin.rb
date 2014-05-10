@@ -6,8 +6,10 @@
 # load the engine
 # load File.expand_path('../lib/questions/engine.rb', __FILE__)
 
+register_asset 'javascripts/questions_injects.js', :template_injector
 
 register_asset "javascripts/questions/questions_post_view.js"
+register_asset "javascripts/questions/questions_creations_view.js"
 register_asset "javascripts/discourse/templates/big_like.js.handlebars"
 
 register_css <<CSS
@@ -32,6 +34,11 @@ register_css <<CSS
     font-size: 45px;
     line-height: 90px;
 }
+
+#reply-control .control .reply-to label {
+    display: inline;
+    margin: 0 2px;
+} 
 
 CSS
 
