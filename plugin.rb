@@ -38,7 +38,11 @@ register_css <<CSS
 #reply-control .control .reply-to label {
     display: inline;
     margin: 0 2px;
-} 
+}
+
+#reply-control .control .reply-to label input {
+ margin: 0 3px;
+}
 
 CSS
 
