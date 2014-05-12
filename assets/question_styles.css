@@ -1,0 +1,30 @@
+
+.bigLikeNumber {
+ text-align: center;
+}
+
+.bigLikeNumber:before {
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: #F5F5F5;
+    font: 90px/1 FontAwesome;
+    content: "\f004";
+    z-index: -5;
+}
+
+.bigLikeNumber h2 {
+    color: #333;
+    font-size: 45px;
+    line-height: 90px;
+}
+
+#reply-control .control .reply-to label {
+    display: inline;
+    margin: 0 2px;
+}
+
+#reply-control .control .reply-to label input {
+ margin: 0 3px;
+}
