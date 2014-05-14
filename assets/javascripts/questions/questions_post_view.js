@@ -8,8 +8,6 @@ Discourse.QuestionBigLikeView = Discourse.View.extend({
 
         Ember.run.schedule('afterRender', this, function(){
             var target = view._parentView.$("article .row");
-            console.log(this.get("likes"));
-            console.log(this.get("context"));
             if (target.length) {
                 if (view.state === "preRender") view.createElement();
                 target.prepend(view.$());
@@ -23,8 +21,8 @@ Discourse.QuestionBigLikeView = Discourse.View.extend({
 
 Discourse.PostView.reopen({
     renderQuestionType: function() {
-        if (this.get("post.topic.archetype") != "question") return
-        if (this.get("post.post_number") === 1) return;
+        if (!this.get("post.topic.isQuestion") || this.get("post.post_number") === 1)
+            return;
 
         var subView = this.get("biglikeview");
         if (!subView) {
@@ -36,4 +34,13 @@ Discourse.PostView.reopen({
     }.on("postViewInserted")
 });
 
-console.log("yes, yup. yeah, yes");
+// make detection easier
+Discourse.Topic.reopen({
+    urlFillerData: function(){
+        data = this._super();
+        data.push("isQuestion");
+        return data;
+    }.property(),
+
+    isQuestion: Em.computed.equal('archetype', 'question')
+});
