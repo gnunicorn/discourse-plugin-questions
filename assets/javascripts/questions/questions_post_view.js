@@ -7,13 +7,13 @@ Discourse.QuestionBigLikeView = Discourse.View.extend({
         if (view.state === "inDOM") return;
 
         Ember.run.schedule('afterRender', this, function(){
-            var target = view._parentView.$("article .row");
+            var target = view._parentView.$("article .row .topic-avatar");
             if (target.length) {
                 if (view.state === "preRender") view.createElement();
                 target.prepend(view.$());
                 // and resize the other boxes, so we do fit, too
-                target.find(".span14").removeClass("span14").addClass("span13");
-                target.find(".span5").removeClass("span5").addClass("span4");
+                // target.find(".span14").removeClass("span14").addClass("span13");
+                // target.find(".span5").removeClass("span5").addClass("span4");
             }
         });
     }
@@ -41,6 +41,13 @@ Discourse.Topic.reopen({
         data.push("isQuestion");
         return data;
     }.property(),
+
+    urlForPostNumber: function(post_number) {
+        // on questions, the posts order changes and therefore the links
+        // using counters are broken. Don't pretend this
+        if (!this.get("isQuestion")) return this._super(post_number);
+        return this.get("url");
+    },
 
     isQuestion: Em.computed.equal('archetype', 'question')
 });
