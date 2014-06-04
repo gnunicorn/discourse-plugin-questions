@@ -1,0 +1,9 @@
+{{#if model.archetypeSelectable}}
+    <label>
+        {{view Discourse.QRadioButton name="archetypeSelection" selectionBinding="model.archetypeId" value="regular"}}
+        {{i18n composer.regular_topic}}</label>
+    <label>{{view Discourse.QRadioButton name="archetypeSelection" selectionBinding="model.archetypeId" value="question"}}
+    {{i18n composer.question}}</label>
+{{else}}
+    {{{model.actionTitle}}}
+{{/if}}
