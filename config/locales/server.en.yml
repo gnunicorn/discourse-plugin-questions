@@ -1,0 +1,4 @@
+en:
+  site_settings:
+    archetypes_question_slug: "url slug to be used for question archetype"
+    archetypes_regular_slug: "url slug to be used for regular archetype"
