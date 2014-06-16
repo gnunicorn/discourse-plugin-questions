@@ -19,3 +19,8 @@
     line-height: 45px;
     margin-bottom: 5px;
 }
+
+.reply-to label {
+  display: inline-block;
+  margin-right: 3px;
+}
