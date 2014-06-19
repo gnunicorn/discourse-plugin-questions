@@ -16,4 +16,4 @@
                 return this.get('action') === "createTopic";
             }.property("action")
     });
-})()
+})();
