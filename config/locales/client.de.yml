@@ -1,6 +1,5 @@
 en:
   js:
-    composer:
-      create: "Erstelle"
-      regular_topic: "neues Thema"
-      question: "neue Frage"
+    archetypes:
+      question:
+        title: "Frage"

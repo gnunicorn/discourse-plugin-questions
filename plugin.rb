@@ -6,10 +6,8 @@
 # load the engine
 # load File.expand_path('../lib/questions/engine.rb', __FILE__)
 
-register_asset "javascripts/discourse/templates/connectors/composer-open-title/selectable_archetype.js.handlebars"
 register_asset "javascripts/questions/questions_post_view.js"
-register_asset "javascripts/questions/questions_creations_view.js"
-register_asset "javascripts/discourse/templates/big_like.js.handlebars"
+register_asset "javascripts/discourse/templates/question_post.js.handlebars"
 
 register_asset "question_styles.css"
 
