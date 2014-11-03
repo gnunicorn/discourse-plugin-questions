@@ -1,5 +1,9 @@
 {{post-gap post=this postStream=controller.postStream before="true"}}
 
+{{#if secondPost}}
+  <h3>{{i18n categories.answers}}</h3>
+{{/if}}
+
 <div class='row'>
   {{view 'reply-history' content=replyHistory}}
 </div>
@@ -18,14 +22,9 @@
       </a>
     {{/if}}
     <div class='topic-avatar'>
-      <div class="bigLikeNumber">
-        <h2>{{actionByName.like.count}}</h2>
-      </div>
-
       {{#unless userDeleted}}
-        <div {{bind-attr class=":contents byTopicCreator:topic-creator :trigger-expansion"}}>
-          <a class="main-avatar" href='{{unbound usernameUrl}}' {{action showPosterExpansion this}}>{{avatar this imageSize="large"}}</a>
-
+        <div {{bind-attr class=":contents byTopicCreator:topic-creator"}}>
+          {{poster-avatar action="expandPostUser" post=this classNames="main-avatar"}}
         </div>
       {{else}}
         <div class="contents">
@@ -33,25 +32,26 @@
         </div>
       {{/unless}}
       {{#if wiki}}
-        <div class="wiki"><i class="fa fa-pencil-square-o fa-3x"></i></div>
+        <div {{action editPost this}} class="wiki" title="{{i18n post.wiki.about}}"><i class="fa fa-pencil-square-o fa-3x"></i></div>
       {{/if}}
     </div>
 
     <div class='topic-body'>
       <div class='topic-meta-data'>
-        {{poster-name post=this expandAction="showPosterExpansion"}}
         <div class='post-info'>
-          <a class='post-date' {{bind-attr href="shareUrl" data-share-url="shareUrl" data-post-number="post_number"}}>{{age-with-tooltip created_at}}</a>
+          {{poster-name post=this expandAction="expandPostUser"}}
+          <i class="fa fa-clock-o"></i> {{date path="created_at" leaveAgo="true"}}
         </div>
+
         {{#if hasHistory}}
           <div class='post-info edits'>
             {{#if can_view_edit_history}}
-              <a href='#' class="{{unbound historyHeat}}" {{action showHistory this}} title="{{i18n post.last_edited_on}} {{raw-date updated_at}}">
+              <a href='#' class="{{unbound view.historyHeat}}" {{action showHistory this}} title="{{i18n post.last_edited_on}} {{raw-date updated_at}}">
                 {{editCount}}
                 <i class='fa fa-pencil'></i>
               </a>
             {{else}}
-              <span class="{{unbound historyHeat}}" title="{{i18n post.last_edited_on}} {{raw-date updated_at}}">
+              <span class="{{unbound view.historyHeat}}" title="{{i18n post.last_edited_on}} {{raw-date updated_at}}">
                 {{editCount}}
                 <i class='fa fa-pencil'></i>
               </span>
@@ -77,13 +77,32 @@
           {{#if controller.loadingExpanded}}
             <button class="btn expand-post" disabled>{{i18n loading}}</button>
           {{else}}
-            <button {{action expandFirstPost this}} class='btn expand-post'>{{i18n post.show_full}}</button>
+            <button {{action expandFirstPost this}} class='btn expand-post'>{{i18n post.show_full}}&hellip;</button>
           {{/if}}
         {{/if}}
-        {{view 'post-menu' post=this adminMenu=view.adminMenu}}
+
+        {{plugin-outlet "post-pre-menu"}}
+
+        {{debug topic=controller.model }}
+
+        {{#if firstPost}}
+          <div class="first-post-bar">
+            <span class="like-count">{{actionByName.like.count}}</span>
+            {{view 'topic-notifications-button' topic=controller.model }}
+            {{view 'reply-button' topic=controller.model }}
+            {{view 'post-menu' post=this adminMenu=view.adminMenu }}
+          </div>
+        {{else}}
+          <div class="tail-post-bar">
+            <span class="like-count">{{actionByName.like.count}}</span>
+            <span class="like-text">{{i18n topic.like_text}}</span>
+            {{view 'post-menu' post=this adminMenu=view.adminMenu }}
+          </div>
+        {{/if}}
+
       </div>
       {{view 'replies' content=replies}}
-      {{discourse-action-history post=this}}
+      {{!-- {{discourse-action-history post=this}} --}}
       {{plugin-outlet "www-post-info"}}
       {{view 'topic-map-container' post=this topic=controller.model}}
     </div>
