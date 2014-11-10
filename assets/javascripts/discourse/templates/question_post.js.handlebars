@@ -41,6 +41,10 @@
         <div class='post-info'>
           {{poster-name post=this expandAction="expandPostUser"}}
           <i class="fa fa-clock-o"></i> {{date path="created_at" leaveAgo="true"}}
+
+          {{#if reply_count}}
+            <i class="fa fa-comments"></i> {{reply_count}} {{i18n categories.answers}}
+          {{/if}}
         </div>
 
         {{#if hasHistory}}
@@ -69,6 +73,11 @@
       <div {{bind-attr class="showUserReplyTab:avoid-tab view.repliesShown::bottom-round :contents :regular view.extraClass"}}>
         <div class='cooked'>
           {{{cooked}}}
+          {{#unless firstPost}}
+            {{#unless topic.closed}}
+              {{view 'reply-button' topic=controller.model }}
+            {{/unless}}
+          {{/unless}}
         </div>
         {{#if cooked_hidden}}
           <a href {{action expandHidden this}}>{{i18n post.show_hidden}}</a>
@@ -83,19 +92,28 @@
 
         {{plugin-outlet "post-pre-menu"}}
 
-        {{debug topic=controller.model }}
-
         {{#if firstPost}}
           <div class="first-post-bar">
             <span class="like-count">{{actionByName.like.count}}</span>
+
+            {{#if controller.model.notifications_count}}
+              <span class="follower-count">{{controller.model.notifications_count}}</span>
+            {{/if}}
+
             {{view 'topic-notifications-button' topic=controller.model }}
-            {{view 'reply-button' topic=controller.model }}
+            {{#unless topic.closed}}
+              {{view 'reply-button' topic=controller.model }}
+            {{/unless}}
             {{view 'post-menu' post=this adminMenu=view.adminMenu }}
           </div>
         {{else}}
           <div class="tail-post-bar">
-            <span class="like-count">{{actionByName.like.count}}</span>
-            <span class="like-text">{{i18n topic.like_text}}</span>
+            {{#if actionByName.like.count}}
+              <span class="like-count">{{actionByName.like.count}}</span>
+              <span class="like-text">{{i18n topic.like_text}}</span>
+            {{else}}
+              <span class="like-count">&nbsp;</span>
+            {{/if}}
             {{view 'post-menu' post=this adminMenu=view.adminMenu }}
           </div>
         {{/if}}
