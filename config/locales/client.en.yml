@@ -3,3 +3,4 @@ en:
     archetypes:
       question:
         title: "Question"
+        plural: "Questions"

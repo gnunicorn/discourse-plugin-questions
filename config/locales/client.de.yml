@@ -1,5 +1,6 @@
-en:
+de:
   js:
     archetypes:
       question:
         title: "Frage"
+        plural: "Fragen"
