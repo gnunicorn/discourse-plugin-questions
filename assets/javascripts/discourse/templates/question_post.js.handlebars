@@ -47,7 +47,7 @@
           {{/if}}
         </div>
 
-        {{#if hasHistory}}
+{{!--         {{#if hasHistory}}
           <div class='post-info edits'>
             {{#if can_view_edit_history}}
               <a href='#' class="{{unbound view.historyHeat}}" {{action showHistory this}} title="{{i18n post.last_edited_on}} {{raw-date updated_at}}">
@@ -61,7 +61,8 @@
               </span>
             {{/if}}
           </div>
-        {{/if}}
+        {{/if}} --}}
+
         <div {{bind-attr class=":read-state read"}} title="{{i18n post.unread}}"><i class='fa fa-circle'></i></div>
       </div>
 
@@ -73,6 +74,7 @@
       <div {{bind-attr class="showUserReplyTab:avoid-tab view.repliesShown::bottom-round :contents :regular view.extraClass"}}>
         <div class='cooked'>
           {{{cooked}}}
+
           {{#unless firstPost}}
             {{#unless topic.closed}}
               {{view 'reply-button' topic=controller.model }}
@@ -94,26 +96,21 @@
 
         {{#if firstPost}}
           <div class="first-post-bar">
-            <span class="like-count">{{actionByName.like.count}}</span>
 
-            {{#if controller.model.notifications_count}}
-              <span class="follower-count">{{controller.model.notifications_count}}</span>
-            {{/if}}
+            {{#unless controller.model.isPrivateMessage}}
+              {{#if controller.model.notifications_count}}
+                <span class="follower-count">{{controller.model.notifications_count}}</span>
+              {{/if}}
 
-            {{view 'topic-notifications-button' topic=controller.model }}
-            {{#unless topic.closed}}
-              {{view 'reply-button' topic=controller.model }}
+              {{view 'topic-notifications-button' topic=controller.model }}
+              {{#unless topic.closed}}
+                {{view 'reply-button' topic=controller.model }}
+              {{/unless}}
             {{/unless}}
             {{view 'post-menu' post=this adminMenu=view.adminMenu }}
           </div>
         {{else}}
           <div class="tail-post-bar">
-            {{#if actionByName.like.count}}
-              <span class="like-count">{{actionByName.like.count}}</span>
-              <span class="like-text">{{i18n topic.like_text}}</span>
-            {{else}}
-              <span class="like-count">&nbsp;</span>
-            {{/if}}
             {{view 'post-menu' post=this adminMenu=view.adminMenu }}
           </div>
         {{/if}}
