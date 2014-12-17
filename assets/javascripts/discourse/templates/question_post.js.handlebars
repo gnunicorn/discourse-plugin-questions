@@ -24,7 +24,12 @@
     <div class='topic-avatar'>
       {{#unless userDeleted}}
         <div {{bind-attr class=":contents byTopicCreator:topic-creator"}}>
-          {{poster-avatar action="expandPostUser" post=this classNames="main-avatar"}}
+        {{debug}}
+          {{#if is_private_post}}
+            <img width="60" height="60" src="http://localhost:4000//plugins/www-theme/images/anonymous-avatar.png" class="avatar" title="{{i18n post.anonymous}}">
+          {{else}}
+            {{poster-avatar action="expandPostUser" post=this classNames="main-avatar"}}
+          {{/if}}
         </div>
       {{else}}
         <div class="contents">
@@ -39,7 +44,16 @@
     <div class='topic-body'>
       <div class='topic-meta-data'>
         <div class='post-info'>
-          {{poster-name post=this expandAction="expandPostUser"}}
+          {{#if is_private_post}}
+            <div class="names">
+              <span class="username">
+                {{i18n post.anonymous}}
+              </span>
+            </div>
+          {{else}}
+            {{poster-name post=this expandAction="expandPostUser"}}
+          {{/if}}
+
           <i class="fa fa-clock-o"></i> {{date path="created_at" leaveAgo="true"}}
 
           {{#if reply_count}}
@@ -103,10 +117,12 @@
               {{/if}}
 
               {{view 'topic-notifications-button' topic=controller.model }}
-              {{#unless topic.closed}}
-                {{view 'reply-button' topic=controller.model }}
-              {{/unless}}
             {{/unless}}
+
+            {{#unless topic.closed}}
+              {{view 'reply-button' topic=controller.model }}
+            {{/unless}}
+
             {{view 'post-menu' post=this adminMenu=view.adminMenu }}
           </div>
         {{else}}
