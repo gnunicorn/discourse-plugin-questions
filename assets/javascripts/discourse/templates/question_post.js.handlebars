@@ -24,9 +24,8 @@
     <div class='topic-avatar'>
       {{#unless userDeleted}}
         <div {{bind-attr class=":contents byTopicCreator:topic-creator"}}>
-        {{debug}}
           {{#if is_private_post}}
-            <img width="60" height="60" src="http://localhost:4000//plugins/www-theme/images/anonymous-avatar.png" class="avatar" title="{{i18n post.anonymous}}">
+            <img width="60" height="60" src="/plugins/www-theme/images/anonymous-avatar.png" class="avatar" title="{{i18n post.anonymous}}">
           {{else}}
             {{poster-avatar action="expandPostUser" post=this classNames="main-avatar"}}
           {{/if}}
