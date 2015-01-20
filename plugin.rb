@@ -7,7 +7,6 @@
 # load File.expand_path('../lib/questions/engine.rb', __FILE__)
 
 register_asset "javascripts/questions/questions_post_view.js"
-register_asset "javascripts/discourse/templates/question_post.js.handlebars"
 
 register_asset "question_styles.css"
 
