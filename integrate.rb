@@ -25,7 +25,8 @@ PostAction.send :include, QuestionsLikeResorter
 
 ## Create and Register new Archetype
 
-class QuestionArchetype < Archetype
+class QuestionArchetype < RegularTopicArchetype
+    ## regular topic offers thread-driven sorting
 end
 
 arch = QuestionArchetype.new(QUESTION_ARCHETYPE_NAME, {
