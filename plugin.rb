@@ -11,5 +11,5 @@ register_asset "javascripts/questions/questions_post_view.js"
 register_asset "question_styles.css"
 
 after_initialize do
-	require_dependency File.expand_path('../integrate.rb', __FILE__)
+  require_dependency File.expand_path('../integrate.rb', __FILE__)
 end
