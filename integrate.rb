@@ -7,8 +7,6 @@ module PostArchetypeQuestion
     if self.archetype == 'question' && self.post_number > 1
       self.vote_score ||= Topic.vote_score_calibration
     end
-
-    Rails.logger.debug "FOO: #{self}"
   end
 end
 
